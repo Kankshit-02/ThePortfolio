@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+/* ============================================
+   KANKSHIT.DEV — Dual Mode Theme System
+   ============================================ */
+
+/* --- Dev Mode (Default) --- */
+[data-mode="dev"] {
+  --bg-primary: #0F0F0F;
+  --bg-secondary: #15151E;
+  --bg-card: #1A1A2E;
+  --bg-elevated: #22223A;
+  --text-primary: #F5F5F5;
+  --text-secondary: #A0A0B0;
+  --text-muted: #6B6B7B;
+  --accent: #E10600;
+  --accent-hover: #FF1E1E;
+  --accent-secondary: #00D4FF;
+  --accent-glow: rgba(225, 6, 0, 0.2);
+  --border: #2A2A3A;
+  --border-subtle: #1F1F2F;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --radius: 4px;
+}
+
+/* --- Music Mode --- */
+[data-mode="music"] {
+  --bg-primary: #FAF7F2;
+  --bg-secondary: #F0EBE3;
+  --bg-card: #FFFFFF;
+  --bg-elevated: #E8E2D8;
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-muted: #8A8A7A;
+  --accent: #D4622B;
+  --accent-hover: #E8913A;
+  --accent-secondary: #6B2D3E;
+  --accent-glow: rgba(212, 98, 43, 0.15);
+  --border: #D4CFC5;
+  --border-subtle: #E8E2D8;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --radius: 12px;
+}
+
+/* --- Tailwind Theme Inline --- */
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-card: var(--bg-card);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-glow: var(--accent-glow);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --radius-theme: var(--radius);
+}
+
+/* --- Base Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Satoshi', 'DM Sans', sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out;
+  overflow-x: hidden;
+}
+
+/* Dev Mode Body */
+[data-mode="dev"] body {
+  font-family: 'Satoshi', 'DM Sans', sans-serif;
+}
+
+/* Music Mode Body */
+[data-mode="music"] body {
+  font-family: 'Source Serif 4', 'Lora', serif;
+}
+
+/* --- Typography Helpers --- */
+.font-display {
+  font-family: 'Clash Display', 'Bebas Neue', sans-serif;
+}
+
+[data-mode="music"] .font-display {
+  font-family: 'Playfair Display', 'Fraunces', serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+}
+
+.font-script {
+  font-family: 'Caveat', 'Dancing Script', cursive;
+}
+
+/* --- Dot Grid Background (Dev Mode) --- */
+.dot-grid {
+  background-image: radial-gradient(circle, #2A2A3A 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* --- Paper Grain Texture (Music Mode) --- */
+.paper-grain {
+  position: relative;
+}
+
+.paper-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- Scanline Overlay (Dev Mode) --- */
+.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* --- Selection --- */
+[data-mode="dev"] ::selection {
+  background: rgba(225, 6, 0, 0.3);
+  color: #F5F5F5;
+}
+
+[data-mode="music"] ::selection {
+  background: rgba(212, 98, 43, 0.3);
+  color: #1A1A1A;
+}
+
+/* --- Mode Transition Overlay --- */
+.mode-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Focus Styles --- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* --- Container utility --- */
+.container-main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .container-main {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-main {
+    padding: 0 2.5rem;
+  }
+}
